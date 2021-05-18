@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Societe
 {
+   
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -20,7 +21,7 @@ class Societe
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=adresse::class, mappedBy="nom", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Adresse::class, mappedBy="nom", orphanRemoval=true)
      */
     private $adresses;
 
@@ -106,6 +107,7 @@ class Societe
         return $this->ville_imm;
     }
 
+
     public function setVilleImm(string $ville_imm): self
     {
         $this->ville_imm = $ville_imm;
@@ -128,6 +130,10 @@ class Societe
     public function getNom(): ?string
     {
         return $this->nom;
+    }
+    public function __toString()
+    {
+        return (string) $this->getNom();
     }
 
     public function setNom(string $nom): self
