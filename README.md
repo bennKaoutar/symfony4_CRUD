@@ -1,3 +1,9 @@
+
+# to run this project 
+
+## create a DB named invest_sym
+## then follow the instructions below
+
 # SymfonyEntityPersistence
 
 ## install dependecies using " composer install" command
