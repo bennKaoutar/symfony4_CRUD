@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Societe;
+use App\Entity\Modification;
 use App\Form\SocieteType;
 use App\Repository\SocieteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,6 +36,16 @@ class SocieteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $modification = new Modification();
+            $modification ->setNomTable("SOCIETE");
+            $modification ->setDate(new \DateTime());
+            $modification ->setHeure(new \DateTime());
+            $modification->setOperation("AJOUT");
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($modification);
+            $em->flush();
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($societe);
             $entityManager->flush();
@@ -67,6 +78,17 @@ class SocieteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $modification = new Modification();
+            $modification ->setNomTable("SOCIETE");
+            $modification ->setDate(new \DateTime());
+            $modification ->setHeure(new \DateTime());
+            $modification->setOperation("MODIFICATION");
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($modification);
+            $em->flush();
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('societe_index');
@@ -84,6 +106,16 @@ class SocieteController extends AbstractController
     public function delete(Request $request, Societe $societe): Response
     {
         if ($this->isCsrfTokenValid('delete'.$societe->getId(), $request->request->get('_token'))) {
+            $modification = new Modification();
+            $modification ->setNomTable("SOCIETE");
+            $modification ->setDate(new \DateTime());
+            $modification ->setHeure(new \DateTime());
+            $modification->setOperation("SUPPRESSION");
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($modification);
+            $em->flush();
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($societe);
             $entityManager->flush();

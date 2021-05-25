@@ -29,3 +29,23 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    
+    #App\EventsListener\ModificationsListener:
+     #   tags:
+      #      -
+       #         name: 'doctrine.event_listener'
+                # this is the only required option for the lifecycle listener tag
+        #        event: 'preUpdate'
+
+                # listeners can define their priority in case multiple listeners are associated
+                # to the same event (default priority = 0; higher numbers = listener is run earlier)
+         #       priority: 500
+
+                # you can also restrict listeners to a specific Doctrine connection
+          #      connection: 'default'
+
+    App\EventsListener\ModificationsListener:
+        arguments: ['@security.token_storage' ]
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate }
+           
