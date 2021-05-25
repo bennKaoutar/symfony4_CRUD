@@ -6,6 +6,7 @@ use App\Entity\Societe;
 use App\Entity\Modification;
 use App\Form\SocieteType;
 use App\Repository\SocieteRepository;
+use App\Repository\ModificationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,10 +20,10 @@ class SocieteController extends AbstractController
     /**
      * @Route("/", name="societe_index", methods={"GET"})
      */
-    public function index(SocieteRepository $societeRepository): Response
+    public function index(SocieteRepository $societeRepository,ModificationRepository $modificationRepository): Response
     {
         return $this->render('societe/index.html.twig', [
-            'societes' => $societeRepository->findAll(),
+            'societes' => $societeRepository->findAll(),'modifications' => $modificationRepository->findBy(array('nom_table' => 'SOCIETE')),
         ]);
     }
 

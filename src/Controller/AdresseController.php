@@ -6,6 +6,7 @@ use App\Entity\Adresse;
 use App\Entity\Modification;
 use App\Form\AdresseType;
 use App\Repository\AdresseRepository;
+use App\Repository\ModificationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,12 +21,12 @@ class AdresseController extends AbstractController
     /**
      * @Route("/", name="adresse_index", methods={"GET"})
      */
-    public function index(AdresseRepository $adresseRepository): Response
+    public function index(AdresseRepository $adresseRepository, ModificationRepository $modificationRepository ): Response
     {
 
        
         return $this->render('adresse/index.html.twig', [
-            'adresses' => $adresseRepository->findAll(),
+            'adresses' => $adresseRepository->findAll(),'modifications' => $modificationRepository->findBy(array('nom_table' => 'ADRESSE')),
         ]);
     }
 

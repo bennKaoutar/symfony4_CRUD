@@ -3,6 +3,12 @@
 {% block title %}Societe index{% endblock %}
 
 {% block body %}
+
+<style>
+.modif {
+  border: 1px solid black;
+}
+</style>
     <h1>Societe index</h1>
 
     <table class="table">
@@ -40,4 +46,38 @@
     </table>
 
     <a href="{{ path('societe_new') }}">Create new</a>
+
+
+    
+    <br><br>
+
+<h1>Historique de Modifications</h1>
+    <table class="modif">
+        <thead>
+            <tr>
+              
+                <th class="modif">Date</th>
+                <th class="modif">Heure</th>
+                <th class="modif">Operation</th>
+                <th class="modif">Table</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for modification in modifications %}
+            <tr>
+               
+                <td class="modif">{{ modification.date|date("d/m/Y") }}</td>
+                <td class="modif">{{ modification.heure|date("H:i:s")}}</td>
+                <td class="modif">{{ modification.operation}}</td>
+                <td class="modif">{{ modification.getNomTable()}}</td>
+               
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}

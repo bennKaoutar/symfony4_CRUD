@@ -3,32 +3,38 @@
 {% block title %}Adresse index{% endblock %}
 
 {% block body %}
+<style>
+.modif {
+  border: 1px solid black;
+}
+</style>
     <h1>Adresse index</h1>
 
-    <table class="table">
+    <table class="modif">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Numero</th>
-                <th>Type_voie</th>
-                <th>Nom_voie</th>
-                <th>Ville</th>
-                <th>Code_postal</th>
-                <th>actions</th>
+                <th class="modif">Id</th>
+                <th class="modif">Numero</th>
+                <th class="modif">Type_voie</th>
+                <th class="modif">Nom_voie</th>
+                <th class="modif">Ville</th>
+                <th class="modif">Code_postal</th>
+                <th class="modif">actions</th>
             </tr>
         </thead>
         <tbody>
         {% for adresse in adresses %}
             <tr>
-                <td>{{ adresse.id }}</td>
-                <td>{{ adresse.numero }}</td>
-                <td>{{ adresse.typeVoie }}</td>
-                <td>{{ adresse.nomVoie }}</td>
-                <td>{{ adresse.ville }}</td>
-                <td>{{ adresse.codePostal }}</td>
-                <td>
+                <td class="modif">{{ adresse.id }}</td>
+                <td class="modif">{{ adresse.numero }}</td>
+                <td class="modif">{{ adresse.typeVoie }}</td>
+                <td class="modif">{{ adresse.nomVoie }}</td>
+                <td class="modif">{{ adresse.ville }}</td>
+                <td class="modif">{{ adresse.codePostal }}</td>
+                <td class="modif">
                     <a href="{{ path('adresse_show', {'id': adresse.id}) }}">show</a>
                     <a href="{{ path('adresse_edit', {'id': adresse.id}) }}">edit</a>
+                  
                 </td>
             </tr>
         {% else %}
@@ -38,6 +44,38 @@
         {% endfor %}
         </tbody>
     </table>
-
+  
     <a href="{{ path('adresse_new') }}">Create new</a>
+
+    <br><br>
+
+<h1>Historique de Modifications</h1>
+    <table class="modif">
+        <thead>
+            <tr>
+              
+                <th class="modif">Date</th>
+                <th class="modif">Heure</th>
+                <th class="modif">Operation</th>
+                <th class="modif">Table</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for modification in modifications %}
+            <tr>
+               
+                <td class="modif">{{ modification.date|date("d/m/Y") }}</td>
+                <td class="modif">{{ modification.heure|date("H:i:s")}}</td>
+                <td class="modif">{{ modification.operation}}</td>
+                <td class="modif">{{ modification.getNomTable()}}</td>
+               
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
+
